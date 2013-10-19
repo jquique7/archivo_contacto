@@ -53,20 +53,24 @@ function escribirArchivos(texto){
     // device APIs are available
     //
     function onDeviceReady() {
+		alert(1);
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
     }
 
     function gotFS(fileSystem) {
+		alert(2);
         fileSystem.root.getFile("readme.txt", {create: true, exclusive: false}, gotFileEntry, fail);
     }
 
     function gotFileEntry(fileEntry) {
+		alert(3);
         fileEntry.createWriter(gotFileWriter, fail);
     }
 
     function gotFileWriter(writer) {
+		alert(4);
         writer.onwriteend = function(evt) {
-            writer.onwriteend = function(evt) {
+         
                 navigator.notification.alert('Escrito satisfactorio', null, 'Escribir', 'Aceptar');
                              
         };
@@ -77,4 +81,3 @@ function escribirArchivos(texto){
         alert(error.code);
     }
 	}
-}

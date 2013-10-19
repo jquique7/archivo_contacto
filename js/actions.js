@@ -11,7 +11,12 @@ $(function(){
 			 escribirArchivos($('#aEscribir').val());
 		 }
 	 });
+	 
+	 $('#ncEnv').tap(function (){
+		  nuevoContacto($('#ncNom').val(),$('#ncTel').val(),$('#ncMail').val());
+	 });
 });
+
 function leerArchivos(){
     document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -81,3 +86,33 @@ function escribirArchivos(texto){
         alert(error.code);
     }
 	}
+
+function nuevoContacto(nom,tel,mail){
+    document.addEventListener("devideready",function(){
+		 var contacto = navigator.contacts.create();
+		 contacto.displayname = nom;//solo funciona en IOS o android
+		 contacto.nickname = nom;//solo funciona en IOS o android
+		 var nombre = new ContactName();
+		 nombre.givenName = nom;
+		 nombre.familyName = 'Prueba';
+		 contacto.name = nombre; //se creo el objeto name
+		 
+		 var telefonos = [];
+		 telefonos[0] = new ContactField("home", tel, true);
+		 telefonos[1] = new ContactField("office", '123-456-7890', false);
+		 contacto.phoneNumbers = telefonos; //se creo un arreglo de objetos telefonos
+		 
+		 var correos = [];
+		 correos[0] = new ContactField("home", mail, false);
+		 correos[1] = new ContactField("office", 'ejemplo@cenet.mx', true);
+		 contacto.emails = correos;//se creo un arreglo de objetos correos
+		 
+		 contacto.save(function (){ //funcion para guardar los contactos
+			 navigator.notification.alert("Contacto Guardado Satisfactoriamente", function(){
+				 window.history.back();
+			 },"Crear Contacto","Aceptar");
+		 }, function(err){
+			alert(err.code); 
+		 }); 
+	},false);
+}

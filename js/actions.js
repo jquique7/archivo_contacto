@@ -13,6 +13,7 @@ $(function(){
 	 });
 	 
 	 $('#ncEnv').tap(function (){
+		 alert(1);
 		  nuevoContacto($('#ncNom').val(),$('#ncTel').val(),$('#ncMail').val());
 	 });
 });
@@ -89,6 +90,7 @@ function escribirArchivos(texto){
 
 function nuevoContacto(nom,tel,mail){
     document.addEventListener("devideready",function(){
+		alert(1);
 		 var contacto = navigator.contacts.create();
 		 contacto.displayname = nom;//solo funciona en IOS o android
 		 contacto.nickname = nom;//solo funciona en IOS o android
